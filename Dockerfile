@@ -2,9 +2,9 @@ FROM golang:1.14-alpine as builder
 
 WORKDIR /go/src
 
-COPY ./src/soma .
+COPY ./src .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" main.go
 
 #############
 
