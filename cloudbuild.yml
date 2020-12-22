@@ -1,8 +1,8 @@
 steps:
   - id: "Executando testes"
     name: "gcr.io/cloud-builders/go"
-    args: [ "test" ]
-    env: [ "GOPATH=/go/src" ]
+    args: [ "test", "soma" ]
+    env: [ "GOPATH=." ]
 
   - id: "Buildando imagem"
     name: "gcr.io/cloud-builders/docker"
@@ -11,3 +11,7 @@ steps:
   - id: "Push imagem GCP"
     name: "gcr.io/cloud-builders/docker"
     args: [ "push", "gcr.io/$PROJECT_ID/soma:$SHORT_SHA" ]
+
+  - id: "Iniciando container"
+    name: "gcr.io/cloud-builders/docker"
+    args: ["run", "gcr.io/$PROJECT_ID/go-sum:$SHORT_SHA"]
